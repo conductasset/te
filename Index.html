@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================================================================
+           ======================= CSS RESET & BASE =======================
+           ================================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 15px;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f8fafc;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        /* =================================================================
+           ======================= CSS VARIABLES ===========================
+           ================================================================= */
+
+        :root {
+            /* Cores Primárias */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+
+            /* Cores Secundárias */
+            --secondary-50: #f8fafc;
+            --secondary-100: #f1f5f9;
+            --secondary-200: #e2e8f0;
+            --secondary-300: #cbd5e1;
+            --secondary-400: #94a3b8;
+            --secondary-500: #64748b;
+            --secondary-600: #475569;
+            --secondary-700: #334155;
+            --secondary-800: #1e293b;
+            --secondary-900: #0f172a;
+
+            /* Cores de Status */
+            --success-50: #f0fdf4;
+            --success-500: #22c55e;
+            --success-600: #16a34a;
+            --success-700: #15803d;
+
+            --error-50: #fef2f2;
+            --error-500: #ef4444;
+            --error-600: #dc2626;
+            --error-700: #b91c1c;
+
+            --warning-50: #fffbeb;
+            --warning-500: #f59e0b;
+            --warning-600: #d97706;
+            --warning-700: #b45309;
+
+            --info-50: #eff6ff;
+            --info-500: #3b82f6;
+            --info-600: #2563eb;
+            --info-700: #1d4ed8;
+
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-600) 0%, var(--secondary-700) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success-500) 0%, var(--success-600) 100%);
+            --gradient-error: linear-gradient(135deg, var(--error-500) 0%, var(--error-600) 100%);
+            --gradient-warning: linear-gradient(135deg, var(--warning-500) 0%, var(--warning-600) 100%);
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+            /* Espaçamentos */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+
+            /* Bordas */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+
+            /* Transições */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Z-index */
+            --z-dropdown: 1000;
+            --z-sticky: 1020;
+            --z-fixed: 1030;
+            --z-modal-backdrop: 1040;
+            --z-modal: 1050;
+            --z-popover: 1060;
+            --z-tooltip: 1070;
+            --z-toast: 1080;
+        }
+
+        /* Tema Escuro */
+        [data-theme="dark"] {
+            --primary-50: #1e3a8a;
+            --primary-100: #1e40af;
+            --primary-200: #1d4ed8;
+            --primary-300: #2563eb;
+            --primary-400: #3b82f6;
+            --primary-500: #60a5fa;
+            --primary-600: #93c5fd;
+            --primary-700: #bfdbfe;
+            --primary-800: #dbeafe;
+            --primary-900: #eff6ff;
+
+            --secondary-50: #0f172a;
+            --secondary-100: #1e293b;
+            --secondary-200: #334155;
+            --secondary-300: #475569;
+            --secondary-400: #64748b;
+            --secondary-500: #94a3b8;
+            --secondary-600: #cbd5e1;
+            --secondary-700: #e2e8f0;
+            --secondary-800: #f1f5f9;
+            --secondary-900: #f8fafc;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: var(--secondary-800);
+        }
+
+        /* =================================================================
+           ======================= LAYOUT COMPONENTS =======================
+           ================================================================= */
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--secondary-200);
+            padding: var(--space-6) 0;
+            position: sticky;
+            top: 0;
+            z-index: var(--z-sticky);
+            box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] .main-header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom-color: var(--secondary-700);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .logo-section h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .logo-section h1 i {
+            color: var(--primary-600);
+            -webkit-text-fill-color: var(--primary-600);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--secondary-600);
+            font-weight: 500;
+            margin-bottom: var(--space-2);
+        }
+
+        [data-theme="dark"] .subtitle {
+            color: var(--secondary-400);
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--primary-50);
+            color: var(--primary-700);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--primary-200);
+        }
+
+        [data-theme="dark"] .version-badge {
+            background: var(--primary-900);
+            color: var(--primary-300);
+            border-color: var(--primary-800);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-3);
+            align-items: center;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--secondary-300);
+            background: var(--secondary-50);
+            color: var(--secondary-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--secondary-100);
+            border-color: var(--secondary-400);
+            color: var(--secondary-700);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        [data-theme="dark"] .btn-icon {
+            background: var(--secondary-800);
+            border-color: var(--secondary-600);
+            color: var(--secondary-400);
+        }
+
+        [data-theme="dark"] .btn-icon:hover {
+            background: var(--secondary-700);
+            border-color: var(--secondary-500);
+            color: var(--secondary-300);
+        }
+
+        /* Navegação */
+        .main-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--secondary-200);
+            padding: var(--space-4) 0;
+            position: sticky;
+            top: 120px;
+            z-index: var(--z-sticky);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .main-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        [data-theme="dark"] .main-nav {
+            background: rgba(30, 41, 59, 0.9);
+            border-bottom-color: var(--secondary-700);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-3);
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+        }
+
+        .nav-btn {
+            position: relative;
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-lg);
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--secondary-600);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .nav-btn i {
+            font-size: 1rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--secondary-100);
+            border-color: var(--secondary-400);
+            color: var(--secondary-700);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-600);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-btn.active:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        [data-theme="dark"] .nav-btn {
+            color: var(--secondary-400);
+        }
+
+        [data-theme="dark"] .nav-btn:hover {
+            background: var(--secondary-700);
+            color: var(--secondary-300);
+            border-color: var(--secondary-600);
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-btn.active .nav-indicator {
+            width: 80%;
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-3);
+            width: 100%;
+        }
+
+        /* =================================================================
+           ======================= FORM COMPONENTS ==========================
+           ================================================================= */
+
+                .form-group.is-invalid .form-input,
+        .form-group.is-invalid .form-select,
+        .form-group.is-invalid .form-textarea {
+            border-color: var(--error-500);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+        }
+
+        .error-message {
+            color: var(--error-700);
+            font-size: 0.75rem;
+            margin-top: var(--space-1);
+            display: none; /* Hidden by default */
+        }
+
+        .form-group.is-invalid .error-message {
+            display: block; /* Show when invalid */
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn var(--transition-normal) ease-out;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--space-10);
+            padding: var(--space-8);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--secondary-200);
+            box-shadow: var(--shadow-lg);
+        }
+
+        [data-theme="dark"] .form-header {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: var(--secondary-700);
+        }
+
+        .form-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-6);
+            background: var(--gradient-primary);
+            border-radius: var(--radius-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: var(--shadow-xl);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .form-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary-900);
+            margin-bottom: var(--space-4);
+        }
+
+        [data-theme="dark"] .form-header h2 {
+            color: var(--secondary-100);
+        }
+
+        .form-header p {
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+            max-width: 600px;
+            margin: 0 auto var(--space-6);
+        }
+
+        [data-theme="dark"] .form-header p {
+            color: var(--secondary-400);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            border: 1px solid var(--secondary-200);
+            box-shadow: var(--shadow-lg);
+        }
+
+        [data-theme="dark"] .form-container {
+            background: rgba(30, 41, 59, 0.95);
+            border-color: var(--secondary-700);
+        }
+
+        .form-section {
+            margin-bottom: var(--space-10);
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--secondary-800);
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--secondary-200);
+        }
+
+        [data-theme="dark"] .section-title {
+            color: var(--secondary-200);
+            border-bottom-color: var(--secondary-700);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--secondary-700);
+        }
+
+        [data-theme="dark"] .form-label {
+            color: var(--secondary-300);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--secondary-300);
+            border-radius: var(--radius-md);
+            background: var(--secondary-50);
+            color: var(--secondary-900);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            width: 100%;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+
+        [data-theme="dark"] .form-input,
+        [data-theme="dark"] .form-select,
+        [data-theme="dark"] .form-textarea {
+            background: var(--secondary-900);
+            border-color: var(--secondary-600);
+            color: var(--secondary-100);
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--secondary-500);
+            margin-top: var(--space-1);
+        }
+
+        [data-theme="dark"] .form-help {
+            color: var(--secondary-400);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .btn {
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            width: auto;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border: 1px solid var(--primary-600);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-700);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .btn-lg {
+            padding: var(--space-5) var(--space-8);
+            font-size: 1.125rem;
+        }
+
+        .fieldset {
+            border: 1px solid var(--secondary-300);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        [data-theme="dark"] .fieldset {
+            border-color: var(--secondary-700);
+        }
+
+        .fieldset-legend {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-800);
+            padding: 0 var(--space-2);
+        }
+
+        [data-theme="dark"] .fieldset-legend {
+            color: var(--secondary-200);
+        }
+
+        /* Loader Overlay */
+        #loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--z-modal-backdrop);
+            color: white;
+            font-size: 1.2rem;
+            gap: var(--space-4);
+        }
+
+        .loader-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed;
+            top: var(--space-8);
+            right: var(--space-8);
+            z-index: var(--z-toast);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .toast {
+            background: var(--info-500);
+            color: white;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            animation: slideInRight 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            max-width: 350px;
+            word-wrap: break-word;
+        }
+
+        .toast-success {
+            background: var(--success-500);
+        }
+
+        .toast-error {
+            background: var(--error-500);
+        }
+
+        .toast-warning {
+            background: var(--warning-500);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Student Management Specific Styles (from StudentRegistrationForm.html) */
+        .capacity-info {
+            margin: var(--space-6) 0;
+        }
+
+        .capacity-card {
+            background: var(--secondary-50);
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+        }
+
+        [data-theme="dark"] .capacity-card {
+            background: var(--secondary-900);
+            border-color: var(--secondary-700);
+        }
+
+        .capacity-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--secondary-900);
+            margin-bottom: var(--space-4);
+        }
+
+        [data-theme="dark"] .capacity-card h4 {
+            color: var(--secondary-100);
+        }
+
+        .capacity-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .capacity-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3) var(--space-4);
+            background: var(--secondary-100);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--secondary-200);
+        }
+
+        [data-theme="dark"] .capacity-stat {
+            background: var(--secondary-800);
+            border-color: var(--secondary-700);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .stat-label {
+            color: var(--secondary-400);
+        }
+
+        .stat-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--secondary-900);
+        }
+
+        [data-theme="dark"] .stat-value {
+            color: var(--secondary-100);
+        }
+
+        .capacity-warning {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            background: rgba(217, 119, 6, 0.1);
+            border: 1px solid var(--warning-500);
+            border-radius: var(--radius-sm);
+            color: var(--warning-700);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .warning-icon {
+            font-size: 1.125rem;
+        }
+
+        .management-list {
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            background: var(--secondary-50);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        [data-theme="dark"] .management-list {
+            background: var(--secondary-900);
+            border-color: var(--secondary-700);
+        }
+
+        .list-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            color: var(--secondary-500);
+            font-style: italic;
+        }
+
+        .student-management-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--secondary-200);
+            transition: background-color var(--transition-fast);
+        }
+
+        .student-management-item:hover {
+            background: var(--secondary-100);
+        }
+
+        .student-management-item:last-child {
+            border-bottom: none;
+        }
+
+        [data-theme="dark"] .student-management-item {
+            border-bottom-color: var(--secondary-700);
+        }
+
+        [data-theme="dark"] .student-management-item:hover {
+            background: var(--secondary-800);
+        }
+
+        .student-management-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .student-management-name {
+            font-weight: 600;
+            color: var(--secondary-900);
+            font-size: 1rem;
+        }
+
+        [data-theme="dark"] .student-management-name {
+            color: var(--secondary-100);
+        }
+
+        .student-management-details {
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+
+        [data-theme="dark"] .student-management-details {
+            color: var(--secondary-400);
+        }
+
+        .student-management-detail {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+
+        .detail-label {
+            font-weight: 500;
+        }
+
+        .student-management-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .action-btn {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .action-btn.delete {
+            background: var(--error-500);
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background: var(--error-700);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.view {
+            background: var(--info-500);
+            color: white;
+        }
+
+        .action-btn.view:hover {
+            background: var(--info-700);
+            transform: translateY(-1px);
+        }
+
+        .cpf-input {
+            position: relative;
+        }
+
+        .cpf-input input {
+            padding-right: 40px;
+        }
+
+        .cpf-format-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--secondary-500);
+            cursor: pointer;
+            font-size: 0.875rem;
+            padding: 4px;
+        }
+
+        .cpf-format-btn:hover {
+            color: var(--secondary-700);
+        }
+
+        @media (max-width: 768px) {
+            .capacity-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .student-management-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-4);
+            }
+
+            .student-management-details {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+
+            .student-management-actions {
+                justify-content: center;
+            }
+
+            .capacity-warning {
+                text-align: center;
+            }
+        }
+
+        /* Route Management Specific Styles (from RouteRegistrationForm.html) */
+        .checkbox-grid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3);
+            border: 1px solid var(--secondary-300);
+            border-radius: var(--radius-md);
+            background: var(--secondary-50);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .checkbox-item:hover {
+            background: var(--secondary-100);
+            border-color: var(--primary-300);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-500);
+        }
+
+        .management-list {
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            background: var(--secondary-50);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .list-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            color: var(--secondary-500);
+            font-style: italic;
+        }
+
+        .route-management-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--secondary-200);
+            transition: background-color var(--transition-fast);
+        }
+
+        .route-management-item:hover {
+            background: var(--secondary-100);
+        }
+
+        .route-management-item:last-child {
+            border-bottom: none;
+        }
+
+        .route-management-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .route-management-name {
+            font-weight: 600;
+            color: var(--secondary-900);
+            font-size: 1rem;
+        }
+
+        .route-management-details {
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+
+        .route-management-detail {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+
+        .detail-label {
+            font-weight: 500;
+        }
+
+        .route-management-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .action-btn {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .action-btn.edit {
+            background: var(--warning-500);
+            color: white;
+        }
+
+        .action-btn.edit:hover {
+            background: var(--warning-700);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.delete {
+            background: var(--error-500);
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background: var(--error-700);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+            .route-management-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-4);
+            }
+            .route-management-details {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+            .route-management-actions {
+                justify-content: center;
+            }
+        }
+
+        /* Attendance Form Specific Styles (from AttendanceRegistrationForm.html) */
+        .students-container {
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            background: var(--secondary-50);
+            min-height: 200px;
+        }
+
+        [data-theme="dark"] .students-container {
+            background: var(--secondary-900);
+            border-color: var(--secondary-700);
+        }
+
+        .students-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            color: var(--secondary-500);
+            font-style: italic;
+        }
+
+        .student-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3);
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            background: var(--secondary-100);
+            margin-bottom: var(--space-2);
+            transition: all var(--transition-fast);
+        }
+
+        [data-theme="dark"] .student-item {
+            background: var(--secondary-800);
+            border-color: var(--secondary-700);
+        }
+
+        .student-item:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .student-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: var(--secondary-900);
+        }
+
+        [data-theme="dark"] .student-name {
+            color: var(--secondary-100);
+        }
+
+        .student-details {
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+        }
+
+        [data-theme="dark"] .student-details {
+            color: var(--secondary-400);
+        }
+
+        .attendance-controls {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .attendance-btn {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .attendance-btn.present {
+            background: var(--success-500);
+            color: white;
+        }
+
+        .attendance-btn.present:hover {
+            background: var(--success-700);
+        }
+
+        .attendance-btn.absent {
+            background: var(--error-500);
+            color: white;
+        }
+
+        .attendance-btn.absent:hover {
+            background: var(--error-700);
+        }
+
+        .attendance-btn.neutral {
+            background: var(--secondary-300);
+            color: var(--secondary-800);
+            border-color: var(--secondary-300);
+        }
+
+        [data-theme="dark"] .attendance-btn.neutral {
+            background: var(--secondary-700);
+            color: var(--secondary-200);
+            border-color: var(--secondary-700);
+        }
+
+        .attendance-btn.neutral:hover {
+            background: var(--secondary-400);
+        }
+
+        .attendance-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3);
+            background: var(--secondary-200);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-3);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        [data-theme="dark"] .attendance-summary {
+            background: var(--secondary-800);
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .summary-count {
+            background: var(--primary-500);
+            color: white;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+        }
+
+        .history-container {
+            border: 1px solid var(--secondary-200);
+            border-radius: var(--radius-md);
+            background: var(--secondary-50);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .history-container {
+            background: var(--secondary-900);
+            border-color: var(--secondary-700);
+        }
+
+        .history-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            color: var(--secondary-500);
+            font-style: italic;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--secondary-200);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        [data-theme="dark"] .history-item {
+            border-bottom-color: var(--secondary-700);
+        }
+
+        .history-date {
+            font-weight: 600;
+            color: var(--secondary-900);
+        }
+
+        [data-theme="dark"] .history-date {
+            color: var(--secondary-100);
+        }
+
+        .history-stats {
+            display: flex;
+            gap: var(--space-4);
+            font-size: 0.875rem;
+            color: var(--secondary-600);
+        }
+
+        [data-theme="dark"] .history-stats {
+            color: var(--secondary-400);
+        }
+
+        .history-stat {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+
+        .stat-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .stat-icon.present {
+            background: var(--success-500);
+        }
+
+        .stat-icon.absent {
+            background: var(--error-500);
+        }
+
+        @media (max-width: 768px) {
+            .student-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-4);
+            }
+            
+            .attendance-controls {
+                justify-content: center;
+            }
+            
+            .attendance-summary {
+                flex-direction: column;
+                gap: var(--space-2);
+                text-align: center;
+            }
+            
+            .history-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-2);
+            }
+            
+            .history-stats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1><i class="fas fa-bus"></i> SIG-TE</h1>
+                    <p class="subtitle">Sistema Integrado de Gestão de Transporte Escolar</p>
+                </div>
+                <div class="header-actions">
+                    <span class="version-badge" id="app-version">vCarregando...</span>
+                    <button id="theme-toggle" class="btn-icon" aria-label="Alternar Tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="search-button" class="btn-icon" aria-label="Buscar">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-content">
+                <button class="nav-btn" data-form="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="monitores">
+                    <i class="fas fa-user-tie"></i> Monitores
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="secretarios">
+                    <i class="fas fa-user-secret"></i> Secretários
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="rotas">
+                    <i class="fas fa-route"></i> Rotas
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="alunos">
+                    <i class="fas fa-user-graduate"></i> Alunos
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="frequencia">
+                    <i class="fas fa-clipboard-check"></i> Frequência
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="eventos">
+                    <i class="fas fa-calendar-alt"></i> Eventos
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="veiculos">
+                    <i class="fas fa-bus-alt"></i> Veículos
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="relatorios">
+                    <i class="fas fa-chart-line"></i> Relatórios
+                    <span class="nav-indicator"></span>
+                </button>
+                <button class="nav-btn" data-form="configuracoes">
+                    <i class="fas fa-cog"></i> Configurações
+                    <span class="nav-indicator"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="main-content">
+            <!-- Dynamic content will be loaded here -->
+            <div id="dashboard-form" class="form-section active">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h2>Dashboard do Sistema</h2>
+                    <p>Visão geral e estatísticas do transporte escolar.</p>
+                </div>
+                <div id="dashboard-content">Carregando dashboard...</div>
+            </div>
+
+            <div id="monitores-form" class="form-section">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-user-tie"></i></div>
+                    <h2>Gestão de Monitores</h2>
+                    <p>Cadastre e gerencie os monitores de transporte.</p>
+                </div>
+                <div id="monitores-content">Carregando formulário de monitores...</div>
+            </div>
+
+            <div id="secretarios-form" class="form-section">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-user-secret"></i></div>
+                    <h2>Gestão de Secretários</h2>
+                    <p>Cadastre e gerencie os secretários escolares.</p>
+                </div>
+                <div id="secretarios-content">Carregando formulário de secretários...</div>
+            </div>
+
+            <div id="rotas-form" class="form-section">
+                <!-- Route Registration Form will be loaded here -->
+            </div>
+
+            <div id="alunos-form" class="form-section">
+                <!-- Student Registration Form will be loaded here -->
+            </div>
+
+            <div id="frequencia-form" class="form-section">
+                <!-- Attendance Registration Form will be loaded here -->
+            </div>
+
+            <div id="eventos-form" class="form-section">
+                <!-- Event Registration Form will be loaded here -->
+            </div>
+
+            <div id="veiculos-form" class="form-section">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-bus-alt"></i></div>
+                    <h2>Gestão de Veículos</h2>
+                    <p>Cadastre e gerencie os veículos de transporte.</p>
+                </div>
+                <div id="veiculos-content">Carregando formulário de veículos...</div>
+            </div>
+
+            <div id="relatorios-form" class="form-section">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-chart-line"></i></div>
+                    <h2>Relatórios</h2>
+                    <p>Visualize relatórios e estatísticas do sistema.</p>
+                </div>
+                <div id="relatorios-content">Carregando relatórios...</div>
+            </div>
+
+            <div id="configuracoes-form" class="form-section">
+                <div class="form-header">
+                    <div class="form-icon"><i class="fas fa-cog"></i></div>
+                    <h2>Configurações do Sistema</h2>
+                    <p>Ajuste as configurações gerais do SIG-TE.</p>
+                </div>
+                <div id="configuracoes-content">Carregando configurações...</div>
+            </div>
+
+        </main>
+
+        <!-- Loader Overlay -->
+        <div id="loader-overlay" class="hidden">
+            <div class="loader-spinner"></div>
+            <p id="loader-message">Carregando...</p>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toast-container"></div>
+
+    </div>
+
+    <script>
+        // Global App object
+        const App = {
+            State: {
+                currentForm: 'dashboard',
+                isSubmitting: false,
+                theme: localStorage.getItem('sigte-theme') || 'light',
+                cache: {
+                    schools: [],
+                    routes: [],
+                    monitors: [],
+                    students: [],
+                    secretaries: [],
+                    dashboardData: null
+                },
+                dashboardRefreshInterval: null
+            },
+
+            Config: {
+                toastDuration: 5000,
+                dashboardRefreshRate: 30000, // 30 segundos
+                validation: {
+                    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    cpf: /^(\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})$/,
+                    phone: /^\d{10,13}$/ // 10 a 13 dígitos numéricos
+                }
+            },
+
+            // =================================================================
+            // ======================= INITIALIZATION ==========================
+            // =================================================================
+            init: async function() {
+                // Set initial theme
+                document.documentElement.setAttribute('data-theme', App.State.theme);
+                const themeIcon = document.querySelector('#theme-toggle i');
+                if (themeIcon) {
+                    themeIcon.className = App.State.theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+                }
+
+                // Fetch and set app name for the title
+                try {
+                    const appName = await new Promise((resolve, reject) => {
+                        google.script.run
+                            .withSuccessHandler(resolve)
+                            .withFailureHandler(reject)
+                            .getAppName();
+                    });
+                    document.title = appName;
+                } catch (error) {
+                    console.error('Erro ao carregar nome da aplicação:', error);
+                    document.title = 'SIG-TE'; // Fallback title
+                }
+
+                App.Events.bindInitialEvents();
+                App.Events.bindValidationEvents();
+
+                // Load initial data for all forms
+                await App.Data.loadInitialData();
+
+                // Show initial form based on URL hash or default
+                const initialHash = window.location.hash.substring(1);
+                App.UI.showForm(initialHash || App.State.currentForm);
+
+                // Start dashboard auto-refresh
+                App.Dashboard.startAutoRefresh();
+
+                // Fetch app version
+                google.script.run.withSuccessHandler((config) => {
+                    if (config && config.APP_VERSION) {
+                        document.getElementById('app-version').textContent = `v${config.APP_VERSION}`;
+                    }
+                }).getConfig('APP_VERSION');
+
+                App.UI.showToast('SIG-TE carregado com sucesso!', 'success');
+                console.log("🚀 SIG-TE Frontend App Initialized");
+            },
+
+            // =================================================================
+            // ======================== UI MODULE ==============================
+            // =================================================================
+            UI: {
+                showForm: function(formId) {
+                    // Remove active class from all sections and nav buttons
+                    document.querySelectorAll('.form-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.querySelectorAll('.nav-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    // Show selected form/section
+                    const targetSection = document.getElementById(`${formId}-form`);
+                    const targetButton = document.querySelector(`[data-form="${formId}"]`);
+
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                        App.State.currentForm = formId;
+                    }
+
+                    if (targetButton) {
+                        targetButton.classList.add('active');
+                    }
+
+                    // Load content dynamically if not already loaded
+                    App.UI.loadFormContent(formId);
+
+                    // Update URL without page reload
+                    if (history.pushState) {
+                        history.pushState(null, null, `#${formId}`);
+                    }
+                },
+
+                loadFormContent: async function(formId) {
+                    const contentDiv = document.getElementById(`${formId}-form`);
+                    if (!contentDiv) return;
+
+                    // Prevent re-loading if content is already there (simple check)
+                    if (contentDiv.innerHTML.trim() !== '') {
+                        // Special handling for dashboard to always refresh
+                        if (formId === 'dashboard') {
+                            App.Dashboard.loadData();
+                        }
+                        return;
+                    }
+
+                    App.UI.showLoading(true, `Carregando ${formId}...`);
+                    try {
+                        const htmlContent = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .getRoute(formId); // Assuming getRoute can fetch any form HTML
+                        });
+                        contentDiv.innerHTML = htmlContent;
+
+                        // Specific post-load actions
+                        if (formId === 'alunos') {
+                            App.Data.populateStudentFormDropdowns();
+                            App.Events.bindStudentFormEvents();
+                        } else if (formId === 'rotas') {
+                            App.Data.populateRouteFormDropdowns();
+                            App.Events.bindRouteFormEvents();
+                        } else if (formId === 'frequencia') {
+                            App.Data.populateAttendanceFormDropdowns();
+                            App.Events.bindAttendanceFormEvents();
+                        } else if (formId === 'eventos') {
+                            App.Data.populateEventFormDropdowns();
+                            App.Events.bindEventFormEvents();
+                        } else if (formId === 'dashboard') {
+                            App.Dashboard.loadData();
+                        }
+
+                    } catch (error) {
+                        console.error(`Erro ao carregar conteúdo para ${formId}:`, error);
+                        contentDiv.innerHTML = `<p style="color: var(--error-700);">Erro ao carregar formulário: ${error.message}</p>`;
+                        App.UI.showToast(`Erro ao carregar ${formId}: ${error.message}`, 'error');
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+
+                populateSelect: function(selectId, data, valueField, textField, placeholder = 'Selecione uma opção') {
+                    const select = document.getElementById(selectId);
+                    if (!select) return;
+
+                    select.innerHTML = `<option value="">${placeholder}</option>`;
+
+                    if (Array.isArray(data)) {
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item[valueField] || item;
+                            option.textContent = item[textField] || item;
+                            select.appendChild(option);
+                        });
+                    }
+                },
+
+                renderStudentAttendanceList: function(students) {
+                    const studentsContainer = document.getElementById('students-list');
+                    if (!studentsContainer) return;
+
+                    if (students.length === 0) {
+                        studentsContainer.innerHTML = '<div class="students-placeholder"><p>Nenhum aluno encontrado para esta rota.</p></div>';
+                        return;
+                    }
+
+                    studentsContainer.innerHTML = students.map(student => `
+                        <div class="student-item" data-ra-aluno="${student.RA_Aluno}">
+                            <div class="student-info">
+                                <span class="student-name">${student.Nome_Completo}</span>
+                                <span class="student-details">RA: ${student.RA_Aluno} | Rota: ${student.ID_Rota}</span>
+                            </div>
+                            <div class="attendance-controls">
+                                <button type="button" class="attendance-btn neutral" data-status="neutral">Marcar</button>
+                                <input type="hidden" name="raAluno" value="${student.RA_Aluno}">
+                                <input type="hidden" name="nomeAluno" value="${student.Nome_Completo}">
+                                <input type="hidden" name="statusFrequencia" value="NEUTRAL">
+                                <textarea class="hidden" name="observacoes"></textarea>
+                                <input type="hidden" name="latitude">
+                                <input type="hidden" name="longitude">
+                                <input type="hidden" name="fotoURL">
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Bind click events for attendance buttons
+                    studentsContainer.querySelectorAll('.attendance-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const currentBtn = e.target;
+                            const studentItem = currentBtn.closest('.student-item');
+                            const statusInput = studentItem.querySelector('input[name="statusFrequencia"]');
+                            let currentStatus = currentBtn.dataset.status;
+
+                            if (currentStatus === 'neutral') {
+                                currentBtn.classList.remove('neutral');
+                                currentBtn.classList.add('present');
+                                currentBtn.textContent = 'Presente';
+                                currentBtn.dataset.status = 'present';
+                                statusInput.value = 'PRESENTE';
+                            } else if (currentStatus === 'present') {
+                                currentBtn.classList.remove('present');
+                                currentBtn.classList.add('absent');
+                                currentBtn.textContent = 'Ausente';
+                                currentBtn.dataset.status = 'absent';
+                                statusInput.value = 'AUSENTE';
+                            } else { // currentStatus === 'absent'
+                                currentBtn.classList.remove('absent');
+                                currentBtn.classList.add('neutral');
+                                currentBtn.textContent = 'Marcar';
+                                currentBtn.dataset.status = 'neutral';
+                                statusInput.value = 'NEUTRAL';
+                            }
+                            App.Events.updateAttendanceSummary();
+                        });
+                    });
+                    App.Events.updateAttendanceSummary(); // Initial summary
+                },
+
+                showToast: function(message, type = 'info', duration = App.Config.toastDuration) {
+                    const container = document.getElementById('toast-container');
+                    if (!container) return;
+
+                    const toast = document.createElement('div');
+                    toast.className = `toast toast-${type}`;
+                    toast.innerHTML = `<i class="fas ${App.UI.getToastIcon(type)}"></i><span>${message}</span>`;
+
+                    container.appendChild(toast);
+
+                    setTimeout(() => {
+                        toast.style.animation = 'slideOutRight 0.3s ease-in';
+                        setTimeout(() => {
+                            if (container.contains(toast)) {
+                                container.removeChild(toast);
+                            }
+                        }, 300);
+                    }, duration);
+                },
+
+                getToastIcon: function(type) {
+                    switch (type) {
+                        case 'success': return 'fa-check-circle';
+                        case 'error': return 'fa-exclamation-circle';
+                        case 'warning': return 'fa-exclamation-triangle';
+                        default: return 'fa-info-circle';
+                    }
+                },
+
+                showLoading: function(show = true, message = 'Carregando...') {
+                    const overlay = document.getElementById('loader-overlay');
+                    const loaderMessage = document.getElementById('loader-message');
+                    if (overlay) {
+                        overlay.classList.toggle('hidden', !show);
+                        if (loaderMessage) {
+                            loaderMessage.textContent = message;
+                        }
+                    }
+                },
+
+                showValidationMessage: function(fieldId, message) {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        const formGroup = field.closest('.form-group');
+                        if (formGroup) {
+                            formGroup.classList.add('is-invalid');
+                            const errorMessageDiv = formGroup.querySelector('.error-message');
+                            if (errorMessageDiv) {
+                                errorMessageDiv.textContent = message;
+                                errorMessageDiv.style.display = 'block'; // Ensure it's visible
+                            }
+                        }
+                    }
+                },
+
+                clearValidationMessage: function(fieldId) {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        const formGroup = field.closest('.form-group');
+                        if (formGroup) {
+                            formGroup.classList.remove('is-invalid');
+                            const errorMessageDiv = formGroup.querySelector('.error-message');
+                            if (errorMessageDiv) {
+                                errorMessageDiv.textContent = '';
+                                errorMessageDiv.style.display = 'none'; // Hide it
+                            }
+                        }
+                    }
+                },
+            },
+
+            // =================================================================
+            // ======================= DASHBOARD LOGIC ==========================
+            // =================================================================
+            Dashboard: {
+                loadData: async function() {
+                    App.UI.showLoading(true, 'Carregando dados do dashboard...');
+                    try {
+                        // Corrigido para usar a função correta do backend
+                        const dashboardResponse = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .generateAdvancedDashboardHTML(); // Use esta função!
+                        });
+
+                        const dashboardContentDiv = document.getElementById('dashboard-content');
+                        if (dashboardContentDiv) {
+                            // Exibe o HTML retornado (pode ser dashboardResponse.html.overview ou dashboardResponse.html)
+                            if (dashboardResponse && dashboardResponse.html && dashboardResponse.html.overview) {
+                                dashboardContentDiv.innerHTML = dashboardResponse.html.overview;
+                            } else if (dashboardResponse && dashboardResponse.html) {
+                                dashboardContentDiv.innerHTML = dashboardResponse.html;
+                            } else {
+                                dashboardContentDiv.innerHTML = '<p style="color: var(--error-700);">Dashboard não disponível.</p>';
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Erro ao carregar dashboard:', error);
+                        App.UI.showToast('Erro ao carregar dados do dashboard: ' + error.message, 'error');
+                        document.getElementById('dashboard-content').innerHTML = '<p style="color: var(--error-700);">Erro ao carregar dashboard. Tente novamente.</p>';
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+
+                generateReport: async function(type) {
+                    App.UI.showLoading(true, `Gerando relatório de ${type}...`);
+                    try {
+                        const reportHtml = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .generateReport(type);
+                        });
+                        document.getElementById('report-output').innerHTML = reportHtml;
+                        App.UI.showToast(`Relatório de ${type} gerado com sucesso!`, 'success');
+                    } catch (error) {
+                        console.error('Erro ao gerar relatório:', error);
+                        App.UI.showToast('Erro ao gerar relatório: ' + error.message, 'error');
+                        document.getElementById('report-output').innerHTML = `<p style="color: var(--error-700);">Erro ao gerar relatório: ${error.message}</p>`;
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+
+                startAutoRefresh: function() {
+                    if (App.State.dashboardRefreshInterval) {
+                        clearInterval(App.State.dashboardRefreshInterval);
+                    }
+                    App.State.dashboardRefreshInterval = setInterval(() => {
+                        if (App.State.currentForm === 'dashboard') {
+                            App.Dashboard.loadData();
+                        }
+                    }, App.Config.dashboardRefreshRate);
+                },
+
+                stopAutoRefresh: function() {
+                    if (App.State.dashboardRefreshInterval) {
+                        clearInterval(App.State.dashboardRefreshInterval);
+                        App.State.dashboardRefreshInterval = null;
+                    }
+                }
+            },
+
+            // =================================================================
+            // ======================= EVENTS MODULE ===========================
+            // =================================================================
+            Events: {
+                bindInitialEvents: function() {
+                    // Navigation events
+                    document.querySelectorAll('.nav-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const formId = e.currentTarget.getAttribute('data-form');
+                            if (formId) {
+                                App.UI.showForm(formId);
+                            }
+                        });
+                    });
+
+                    // Theme toggle
+                    const themeToggle = document.getElementById('theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.addEventListener('click', App.Events.toggleTheme);
+                    }
+
+                    // Search button
+                    const searchButton = document.getElementById('search-button');
+                    if (searchButton) {
+                        searchButton.addEventListener('click', App.Events.openSearchDialog);
+                    }
+
+                    // Handle browser back/forward
+                    window.addEventListener('popstate', () => {
+                        const hash = window.location.hash.substring(1);
+                        if (hash) {
+                            App.UI.showForm(hash);
+                        }
+                    });
+                },
+
+                bindValidationEvents: function() {
+                    // CPF formatting and validation
+                    document.addEventListener('input', (e) => {
+                        if (e.target.matches('input[name="cpf"]')) {
+                            e.target.value = App.UI.formatCPF(e.target.value);
+                        }
+                    });
+                    document.addEventListener('blur', (e) => {
+                        if (e.target.matches('input[name="cpf"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.replace(/\D/g, ''); // Clean for validation
+                            if (value && !App.Config.validation.cpf.test(value)) {
+                                App.UI.showValidationMessage(fieldId, 'Formato de CPF inválido (ex: 000.000.000-00 ou 00000000000)');
+                            } else {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+                    document.addEventListener('keyup', (e) => { // Add keyup listener to clear on valid input
+                        if (e.target.matches('input[name="cpf"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.replace(/\D/g, '');
+                            if (value === '' || App.Config.validation.cpf.test(value)) {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+
+                    // Phone formatting and validation
+                    document.addEventListener('input', (e) => {
+                        if (e.target.matches('input[type="tel"]')) {
+                            e.target.value = App.UI.formatCelular(e.target.value);
+                        }
+                    });
+                    document.addEventListener('blur', (e) => {
+                        if (e.target.matches('input[type="tel"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.replace(/\D/g, '');
+                            if (value && !App.Config.validation.phone.test(value)) {
+                                App.UI.showValidationMessage(fieldId, 'Formato de telefone inválido (10 a 13 dígitos numéricos)');
+                            } else {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+                    document.addEventListener('keyup', (e) => { // Add keyup listener to clear on valid input
+                        if (e.target.matches('input[type="tel"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.replace(/\D/g, '');
+                            if (value === '' || App.Config.validation.phone.test(value)) {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+
+                    // Email validation
+                    document.addEventListener('blur', (e) => {
+                        if (e.target.matches('input[type="email"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.trim();
+                            if (value && !App.Config.validation.email.test(value)) {
+                                App.UI.showValidationMessage(fieldId, 'Formato de e-mail inválido');
+                            } else {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+                    document.addEventListener('keyup', (e) => { // Add keyup listener to clear on valid input
+                        if (e.target.matches('input[type="email"]')) {
+                            const fieldId = e.target.id;
+                            const value = e.target.value.trim();
+                            if (value === '' || App.Config.validation.email.test(value)) {
+                                App.UI.clearValidationMessage(fieldId);
+                            }
+                        }
+                    });
+                },
+
+                bindStudentFormEvents: function() {
+                    // Event listener for school dropdown to load routes dynamically
+                    const schoolSelect = document.getElementById('student-school-students');
+                    if (schoolSelect) {
+                        schoolSelect.addEventListener('change', App.Events.loadRoutesForStudentForm);
+                    }
+
+                    // Event listener for route dropdown to show capacity info
+                    const routeSelect = document.getElementById('student-route-students');
+                    if (routeSelect) {
+                        routeSelect.addEventListener('change', App.Events.showRouteCapacityInfo);
+                    }
+
+                    // Form submission for student form
+                    const studentForm = document.getElementById('add-student-form-students');
+                    if (studentForm) {
+                        studentForm.addEventListener('submit', App.Events.handleFormSubmit);
+                    }
+
+                    // Photo input change listener
+                    const studentPhotoInput = document.getElementById('student-photo');
+                    if (studentPhotoInput) {
+                        studentPhotoInput.addEventListener('change', App.Events.handleStudentPhotoChange);
+                    }
+                },
+
+                bindRouteFormEvents: function() {
+                    // Form submission for route form
+                    const routeForm = document.getElementById('add-route-form');
+                    if (routeForm) {
+                        routeForm.addEventListener('submit', App.Events.handleFormSubmit);
+                    }
+                },
+
+                bindAttendanceFormEvents: function() {
+                    // Event listener for monitor phone/password to authenticate and load routes
+                    const monitorPhoneInput = document.getElementById('attendance-monitor-phone-main');
+                    const monitorPasswordInput = document.getElementById('attendance-password-main');
+                    const attendanceRouteSelect = document.getElementById('attendance-route-main');
+
+                    const authenticateAndLoadRoutes = async () => {
+                        const phone = monitorPhoneInput.value.replace(/\D/g, '');
+                        const password = monitorPasswordInput.value;
+
+                        if (phone && password) {
+                            App.UI.showLoading(true, 'Autenticando monitor...');
+                            try {
+                                const authResult = await new Promise((resolve, reject) => {
+                                    google.script.run
+                                        .withSuccessHandler(resolve)
+                                        .withFailureHandler(reject)
+                                        .authenticate(phone, password); // Assuming a generic authenticate function in Code.gs
+                                });
+
+                                if (authResult.success && authResult.user.role === 'MONITOR') {
+                                    App.UI.showToast(`Monitor ${authResult.user.nome} autenticado!`, 'success');
+                                    document.getElementById('attendance-monitor-name').value = authResult.user.nome;
+                                    // Populate routes specific to this monitor (if applicable, otherwise all routes)
+                                    const routesForMonitor = App.State.cache.routes.filter(r => String(r.Celular_Monitor).replace(/\D/g, '') === phone);
+                                    App.UI.populateSelect(attendanceRouteSelect.id, routesForMonitor, 'ID_Rota', 'Nome_Rota', 'Selecione uma rota');
+                                    attendanceRouteSelect.disabled = false;
+                                } else {
+                                    throw new Error(authResult?.message || 'Credenciais de monitor inválidas ou não autorizado.');
+                                }
+                            } catch (error) {
+                                console.error('Erro de autenticação do monitor:', error);
+                                App.UI.showToast('Erro de autenticação: ' + error.message, 'error');
+                                attendanceRouteSelect.innerHTML = '<option value="" disabled selected>Valide suas credenciais para ver as rotas</option>';
+                                attendanceRouteSelect.disabled = true;
+                                document.getElementById('attendance-monitor-name').value = '';
+                            } finally {
+                                App.UI.showLoading(false);
+                            }
+                        }
+                    };
+
+                    if (monitorPhoneInput) monitorPhoneInput.addEventListener('blur', authenticateAndLoadRoutes);
+                    if (monitorPasswordInput) monitorPasswordInput.addEventListener('blur', authenticateAndLoadRoutes);
+
+                    // Event listener for route selection to load students and check period status
+                    const attendanceDateInput = document.getElementById('attendance-date-main');
+                    const attendancePeriodoSelect = document.getElementById('attendance-periodo');
+
+                    const loadStudentsAndCheckPeriod = async () => {
+                        const routeId = attendanceRouteSelect.value;
+                        const date = attendanceDateInput.value;
+                        const monitorCelular = monitorPhoneInput.value.replace(/\D/g, '');
+                        const studentsContainer = document.getElementById('students-list');
+                        studentsContainer.innerHTML = '<div class="students-placeholder"><p>Selecione uma rota para ver a lista de alunos</p></div>';
+
+                        if (!routeId || !date || !monitorCelular) {
+                            attendancePeriodoSelect.value = '';
+                            attendancePeriodoSelect.disabled = false;
+                            return;
+                        }
+
+                        App.UI.showLoading(true, 'Carregando alunos e verificando status...');
+                        try {
+                            // Load students for the selected route
+                            const studentsResponse = await new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .getStudentsByRoute(routeId); // Assuming this function exists in StudentService
+                            });
+
+                            if (studentsResponse && studentsResponse.success) {
+                                if (studentsResponse.data.length === 0) {
+                                    studentsContainer.innerHTML = '<div class="students-placeholder"><p>Nenhum aluno encontrado para esta rota.</p></div>';
+                                } else {
+                                    studentsContainer.innerHTML = studentsResponse.data.map(student => `
+                                        <div class="student-item">
+                                            <div class="student-info">
+                                                <span class="student-name">${student.Nome_Completo}</span>
+                                                <span class="student-details">CPF: ${App.UI.formatCPF(student.CPF || '')} | Rota: ${student.ID_Rota}</span>
+                                            </div>
+                                            <div class="attendance-controls">
+                                                <button type="button" class="attendance-btn neutral" data-student-id="${student.ID_Aluno}" data-status="neutral">Marcar</button>
+                                            </div>
+                                        </div>
+                                    `).join('');
+
+                                    // Bind click events for attendance buttons
+                                    studentsContainer.querySelectorAll('.attendance-btn').forEach(btn => {
+                                        btn.addEventListener('click', (e) => {
+                                            const currentBtn = e.target;
+                                            const currentStatus = currentBtn.dataset.status;
+                                            if (currentStatus === 'neutral') {
+                                                currentBtn.classList.remove('neutral');
+                                                currentBtn.classList.add('present');
+                                                currentBtn.textContent = 'Presente';
+                                                currentBtn.dataset.status = 'present';
+                                            } else if (currentStatus === 'present') {
+                                                currentBtn.classList.remove('present');
+                                                currentBtn.classList.add('absent');
+                                                currentBtn.textContent = 'Ausente';
+                                                currentBtn.dataset.status = 'absent';
+                                            } else {
+                                                currentBtn.classList.remove('absent');
+                                                currentBtn.classList.add('neutral');
+                                                currentBtn.textContent = 'Marcar';
+                                                currentBtn.dataset.status = 'neutral';
+                                            }
+                                            App.Events.updateAttendanceSummary();
+                                        });
+                                    });
+                                    App.Events.updateAttendanceSummary(); // Initial summary
+                                }
+                            } else {
+                                throw new Error(studentsResponse?.message || 'Erro ao carregar alunos');
+                            }
+
+                            // Check attendance period status
+                            const checkPeriodResponse = await new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .checkFrequenciaStatus(date, routeId, monitorCelular); // Assuming this function exists in AttendanceService
+                            });
+
+                            if (checkPeriodResponse && checkPeriodResponse.success) {
+                                if (checkPeriodResponse.status === 'Ida_Recorded') {
+                                    attendancePeriodoSelect.value = 'Volta';
+                                    App.UI.showToast('Registro de Ida já existe para esta data e rota. Preenchendo para Volta.', 'info');
+                                } else {
+                                    attendancePeriodoSelect.value = 'Ida';
+                                    App.UI.showToast('Nenhum registro de Ida encontrado. Preenchendo para Ida.', 'info');
+                                }
+                                attendancePeriodoSelect.disabled = true;
+                            } else {
+                                throw new Error(checkPeriodResponse?.message || 'Erro ao verificar status da frequência');
+                            }
+
+                            // Load attendance history
+                            const historyResponse = await new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .getAttendanceHistory(routeId); // Assuming this function exists in AttendanceService
+                            });
+
+                            if (historyResponse && historyResponse.success) {
+                                App.Events.renderAttendanceHistory(historyResponse.data);
+                            } else {
+                                throw new Error(historyResponse?.message || 'Erro ao carregar histórico de frequência');
+                            }
+
+                        } catch (error) {
+                            console.error('Erro ao carregar alunos ou verificar status/histórico:', error);
+                            App.UI.showToast('Erro: ' + error.message, 'error');
+                            studentsContainer.innerHTML = '<div class="students-placeholder"><p>Erro ao carregar dados. Tente novamente.</p></div>';
+                            attendancePeriodoSelect.value = '';
+                            attendancePeriodoSelect.disabled = false;
+                        } finally {
+                            App.UI.showLoading(false);
+                        }
+                    };
+
+                    if (attendanceRouteSelect) attendanceRouteSelect.addEventListener('change', loadStudentsAndCheckPeriod);
+                    if (attendanceDateInput) attendanceDateInput.addEventListener('change', loadStudentsAndCheckPeriod);
+
+                    // Initial call if fields are already filled (e.g., on page refresh with hash)
+                    if (monitorPhoneInput.value && monitorPasswordInput.value) {
+                        authenticateAndLoadRoutes();
+                    }
+                },
+
+                updateAttendanceSummary: function() {
+                    const studentsContainer = document.getElementById('students-list');
+                    const presentCount = studentsContainer.querySelectorAll('.attendance-btn[data-status="present"]').length;
+                    const absentCount = studentsContainer.querySelectorAll('.attendance-btn[data-status="absent"]').length;
+                    const totalStudents = studentsContainer.querySelectorAll('.student-item').length;
+
+                    let summaryHtml = '';
+                    if (totalStudents > 0) {
+                        summaryHtml = `
+                            <div class="attendance-summary">
+                                <div class="summary-item">Total de Alunos: <span class="summary-count">${totalStudents}</span></div>
+                                <div class="summary-item">Presentes: <span class="summary-count" style="background: var(--success-500);">${presentCount}</span></div>
+                                <div class="summary-item">Ausentes: <span class="summary-count" style="background: var(--error-500);">${absentCount}</span></div>
+                            </div>
+                        `;
+                    }
+                    const existingSummary = studentsContainer.querySelector('.attendance-summary');
+                    if (existingSummary) {
+                        existingSummary.outerHTML = summaryHtml;
+                    } else if (summaryHtml) {
+                        studentsContainer.insertAdjacentHTML('afterend', summaryHtml);
+                    }
+                },
+
+
+
+                renderAttendanceHistory: function(historyData) {
+                    const historyContainer = document.getElementById('attendance-history');
+                    if (!historyContainer) return;
+
+                    if (historyData.length === 0) {
+                        historyContainer.innerHTML = '<div class="history-placeholder"><p>Nenhum histórico de frequência encontrado para esta rota.</p></div>';
+                        return;
+                    }
+
+                    historyContainer.innerHTML = historyData.map(record => {
+                        const recordDate = new Date(record.Data_Frequencia);
+                        const formattedDate = recordDate.toLocaleDateString('pt-BR');
+                        const periodo = record.Qtd_Presentes__Ida !== undefined ? 'Ida' : 'Volta';
+                        const presentCount = record[`Qtd_Presentes__${periodo}`];
+                        const absentCount = record[`Qtd_Ausentes_${periodo}`];
+
+                        return `
+                            <div class="history-item">
+                                <div class="history-info">
+                                    <span class="history-date">${formattedDate} (${periodo})</span>
+                                    <div class="history-stats">
+                                        <div class="history-stat"><span class="stat-icon present"></span> Presentes: ${presentCount}</div>
+                                        <div class="history-stat"><span class="stat-icon absent"></span> Ausentes: ${absentCount}</div>
+                                    </div>
+                                    ${record.Observacoes ? `<p class="history-observations">Obs: ${record.Observacoes}</p>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                },
+
+                toggleTheme: function() {
+                    const currentTheme = App.State.theme;
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    App.State.theme = newTheme;
+                    localStorage.setItem('sigte-theme', newTheme);
+
+                    const themeIcon = document.querySelector('#theme-toggle i');
+                    if (themeIcon) {
+                        themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+                    }
+                },
+
+                openSearchDialog: function() {
+                    try {
+                        google.script.run
+                            .withSuccessHandler(() => {
+                                App.UI.showToast('Diálogo de busca aberto', 'info');
+                            })
+                            .withFailureHandler((error) => {
+                                App.UI.showToast('Erro ao abrir busca: ' + error.message, 'error');
+                            })
+                            .openSearchDialog();
+                    } catch (error) {
+                        App.UI.showToast('Erro ao abrir busca: ' + error.message, 'error');
+                    }
+                },
+
+                loadRoutesForStudentForm: function() {
+                    const schoolSelect = document.getElementById('student-school-students');
+                    const routeSelect = document.getElementById('student-route-students');
+                    const selectedSchoolName = schoolSelect.value;
+
+                    const filteredRoutes = App.State.cache.routes.filter(route => route.Nome_Escola === selectedSchoolName);
+                    App.UI.populateSelect(routeSelect.id, filteredRoutes, 'ID_Rota', 'Nome_Rota', 'Selecione uma rota');
+                    routeSelect.disabled = !selectedSchoolName;
+
+                    // Clear capacity info when school changes
+                    document.getElementById('route-capacity-info').classList.add('hidden');
+                },
+
+                showRouteCapacityInfo: async function() {
+                    const routeSelect = document.getElementById('student-route-students');
+                    const routeId = routeSelect.value;
+                    const capacityInfoDiv = document.getElementById('route-capacity-info');
+
+                    if (!routeId) {
+                        capacityInfoDiv.classList.add('hidden');
+                        return;
+                    }
+
+                    App.UI.showLoading(true, 'Carregando capacidade da rota...');
+                    try {
+                        const response = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .getRouteCapacityInfo(routeId);
+                        });
+
+                        if (response && response.success) {
+                            document.getElementById('total-slots').textContent = response.data.totalCapacity;
+                            document.getElementById('occupied-slots').textContent = response.data.occupiedSeats;
+                            document.getElementById('available-slots').textContent = response.data.availableSeats;
+                            capacityInfoDiv.classList.remove('hidden');
+
+                            if (response.data.availableSeats <= 5) { // Example threshold for warning
+                                document.getElementById('capacity-warning').classList.remove('hidden');
+                            } else {
+                                document.getElementById('capacity-warning').classList.add('hidden');
+                            }
+                        } else {
+                            throw new Error(response?.message || 'Erro ao carregar capacidade da rota');
+                        }
+                    } catch (error) {
+                        console.error('Erro ao carregar capacidade da rota:', error);
+                        App.UI.showToast('Erro ao carregar capacidade da rota: ' + error.message, 'error');
+                        capacityInfoDiv.classList.add('hidden');
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+
+                handleStudentPhotoChange: function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            // Store base64 string in a hidden input or directly attach to form data
+                            // For now, we'll just log it and assume it's handled during form submission
+                            console.log('Photo converted to Base64. Size:', e.target.result.length, 'bytes');
+                            // You might want to display a preview here
+                            // e.g., document.getElementById('student-photo-preview').src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+
+                handleFormSubmit: async function(event) {
+                    event.preventDefault();
+
+                    if (App.State.isSubmitting) {
+                        App.UI.showToast('Aguarde, processando...', 'warning');
+                        return;
+                    }
+
+                    const form = event.target;
+                    const formId = form.id;
+
+                    // Client-side validation for required fields
+                    let isValid = true;
+                    form.querySelectorAll('[required]').forEach(field => {
+                        const fieldId = field.id;
+                        if (!field.value.trim()) {
+                            App.UI.showValidationMessage(fieldId, 'Este campo é obrigatório.');
+                            isValid = false;
+                        } else {
+                            App.UI.clearValidationMessage(fieldId);
+                        }
+                    });
+
+                    if (!isValid) {
+                        App.UI.showToast('Por favor, preencha todos os campos obrigatórios.', 'error');
+                        App.State.isSubmitting = false; // Ensure submission state is reset
+                        App.UI.showLoading(false);
+                        return; // Stop submission
+                    }
+
+                    // Determine formType based on formId
+                    let formType;
+                    if (formId === 'add-student-form-students') {
+                        formType = 'alunos';
+                    } else if (formId === 'add-route-form') {
+                        formType = 'rotas';
+                    } else if (formId === 'attendance-form-main') {
+                        formType = 'frequencia';
+                    } else if (formId === 'holiday-form') {
+                        formType = 'ponto-facultativo';
+                    } else if (formId === 'makeup-form') {
+                        formType = 'reposicao';
+                    } else if (formId === 'activity-form-event') {
+                        formType = 'atividade-extracurricular';
+                    } else {
+                        App.UI.showToast('Tipo de formulário não identificado', 'error');
+                        return;
+                    }
+
+                    try {
+                        App.State.isSubmitting = true;
+                        App.UI.showLoading(true, 'Enviando dados...');
+
+                        const formData = new FormData(form);
+                        const data = {};
+                        for (let [key, value] of formData.entries()) {
+                            // Special handling for checkboxes (weekDays) and multiple student selections
+                            if (key === 'weekDays' || key === 'studentIds') {
+                                if (!data[key]) {
+                                    data[key] = [];
+                                }
+                                data[key].push(value);
+                            } else {
+                                data[key] = value;
+                            }
+                        }
+
+                        // Handle file input separately for base64 conversion (only for student form)
+                        if (formId === 'add-student-form-students') {
+                            const studentPhotoInput = document.getElementById('student-photo');
+                            if (studentPhotoInput && studentPhotoInput.files.length > 0) {
+                                const file = studentPhotoInput.files[0];
+                                const reader = new FileReader();
+                                const base64Promise = new Promise((resolve, reject) => {
+                                    reader.onload = () => resolve(reader.result);
+                                    reader.onerror = error => reject(error);
+                                    reader.readAsDataURL(file);
+                                });
+                                data.studentPhotoBase64 = await base64Promise;
+                            }
+                        }
+
+                        // Handle attendance student selections
+                        if (formId === 'attendance-form-main') {
+                            const presentStudentIds = [];
+                            const absentStudentIds = [];
+                            document.querySelectorAll('#students-list .attendance-btn').forEach(btn => {
+                                const studentId = btn.dataset.studentId;
+                                const status = btn.dataset.status;
+                                if (status === 'present') {
+                                    presentStudentIds.push(studentId);
+                                } else if (status === 'absent') {
+                                    absentStudentIds.push(studentId);
+                                }
+                            });
+                            data.presentStudentIds = presentStudentIds;
+                            data.absentStudentIds = absentStudentIds;
+                        }
+
+                        // Extract auth data (assuming secretary/monitor validation)
+                        const authData = {
+                            celular: data.monitorPhone ? data.monitorPhone.replace(/\D/g, '') : '', // For attendance form
+                            senha: data.password || ''
+                        };
+
+                        // For student and route forms, secretaryPhone is used for auth
+                        if (formId === 'add-student-form-students' || formId === 'add-route-form' || formId === 'holiday-form' || formId === 'makeup-form' || formId === 'activity-form-event') {
+                            authData.celular = data.secretaryPhone ? data.secretaryPhone.replace(/\D/g, '') : '';
+                        }
+
+                        // Remove auth data from main form data before sending to service
+                        delete data.secretaryPhone;
+                        delete data.password;
+                        delete data.monitorPhone;
+
+                        const response = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .submitForm(formType, data, authData);
+                        });
+
+                        if (response && response.success) {
+                            App.UI.showToast(response.message || 'Dados salvos com sucesso!', 'success');
+                            form.reset();
+                            // Re-populate dropdowns and clear capacity info after successful submission
+                            if (formId === 'add-student-form-students') {
+                                App.Data.populateStudentFormDropdowns();
+                                document.getElementById('route-capacity-info').classList.add('hidden');
+                            } else if (formId === 'add-route-form') {
+                                App.Data.populateRouteFormDropdowns();
+                                // Optionally refresh route management list
+                            } else if (formId === 'attendance-form-main') {
+                                // Clear students list and history after attendance submission
+                                document.getElementById('students-list').innerHTML = '<div class="students-placeholder"><p>Selecione uma rota para ver a lista de alunos</p></div>';
+                                document.getElementById('attendance-history').innerHTML = '<div class="history-placeholder"><p>Selecione uma rota para ver o histórico de frequência</p></div>';
+                                // Re-enable periodo select
+                                document.getElementById('attendance-periodo').disabled = false;
+                                document.getElementById('attendance-periodo').value = '';
+                            } else if (formId === 'holiday-form' || formId === 'makeup-form' || formId === 'activity-form-event') {
+                                // Re-populate school dropdowns for event forms
+                                App.Data.populateEventFormDropdowns();
+                                // Refresh upcoming events list
+                                App.Events.loadUpcomingEvents();
+                            }
+                        } else {
+                            throw new Error(response?.message || 'Erro desconhecido ao salvar dados');
+                        }
+
+                    } catch (error) {
+                        console.error('Erro na submissão:', error);
+                        App.UI.showToast('Erro ao salvar: ' + error.message, 'error');
+                    } finally {
+                        App.State.isSubmitting = false;
+                        App.UI.showLoading(false);
+                    }
+                }
+            },
+
+            // =================================================================
+            // ======================== DATA MODULE ============================
+            // =================================================================
+            // =================================================================
+            // ========================= DATA MODULE ===========================
+            // =================================================================
+            Data: {
+                loadInitialData: async function() {
+                    App.UI.showLoading(true, 'Carregando dados iniciais...');
+                    try {
+                        const [studentFormData, routeFormData, attendanceFormData] = await Promise.all([
+                            new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .getInitialDataForStudentForm();
+                            }),
+                            new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .getInitialDataForRouteForm();
+                            }),
+                            new Promise((resolve, reject) => {
+                                google.script.run
+                                    .withSuccessHandler(resolve)
+                                    .withFailureHandler(reject)
+                                    .getInitialDataForAttendanceForm();
+                            })
+                        ]);
+
+                        if (studentFormData.success) {
+                            App.State.cache.schools = studentFormData.data.schools;
+                            App.State.cache.routes = studentFormData.data.routes;
+                        }
+                        if (routeFormData.success) {
+                            App.State.cache.vehicles = routeFormData.data.vehicles;
+                            App.State.cache.monitors = routeFormData.data.monitors;
+                            App.State.cache.schools = routeFormData.data.schools; // Ensure schools are cached
+                        }
+                        if (attendanceFormData.success) {
+                            App.State.cache.routes = attendanceFormData.data.routes; // Ensure routes are cached
+                            App.State.cache.monitors = attendanceFormData.data.monitors; // Ensure monitors are cached
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao carregar dados iniciais:', error);
+                        App.UI.showToast('Erro ao carregar dados iniciais: ' + error.message, 'error');
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+
+                populateStudentFormDropdowns: function() {
+                    App.UI.populateSelect('student-school-students', App.State.cache.schools, 'Nome_Escola', 'Nome_Escola', 'Selecione a Escola');
+                    App.UI.populateSelect('student-route-students', App.State.cache.routes, 'ID_Rota', 'Nome_Rota', 'Selecione a Rota');
+                },
+
+                populateRouteFormDropdowns: function() {
+                    App.UI.populateSelect('route-vehicle', App.State.cache.vehicles, 'ID_Onibus', 'Placa', 'Selecione o Veículo');
+                    App.UI.populateSelect('route-monitor', App.State.cache.monitors, 'ID_Monitor', 'Nome_Completo', 'Selecione o Monitor');
+                    App.UI.populateSelect('route-school', App.State.cache.schools, 'Nome_Escola', 'Nome_Escola', 'Selecione a Escola');
+                },
+
+                populateAttendanceFormDropdowns: function() {
+                    App.UI.populateSelect('attendance-route-main', App.State.cache.routes, 'ID_Rota', 'Nome_Rota', 'Selecione a Rota');
+                },
+
+                populateEventFormDropdowns: function() {
+                    App.UI.populateSelect('event-school', App.State.cache.schools, 'Nome_Escola', 'Nome_Escola', 'Selecione a Escola');
+                },
+
+                getStudentsForRoute: async function(routeId) {
+                    App.UI.showLoading(true, 'Carregando alunos da rota...');
+                    try {
+                        const studentsResponse = await new Promise((resolve, reject) => {
+                            google.script.run
+                                .withSuccessHandler(resolve)
+                                .withFailureHandler(reject)
+                                .getStudentsByRoute(routeId);
+                        });
+                        if (studentsResponse.success) {
+                            App.State.cache.students = studentsResponse.data;
+                            App.UI.renderStudentAttendanceList(studentsResponse.data);
+                        } else {
+                            App.UI.showToast('Erro ao carregar alunos: ' + studentsResponse.message, 'error');
+                            App.UI.renderStudentAttendanceList([]); // Clear list on error
+                        }
+                    } catch (error) {
+                        console.error('Erro ao carregar alunos da rota:', error);
+                        App.UI.showToast('Erro ao carregar alunos da rota: ' + error.message, 'error');
+                        App.UI.renderStudentAttendanceList([]); // Clear list on error
+                    } finally {
+                        App.UI.showLoading(false);
+                    }
+                },
+            },
+</body>
+</html>
