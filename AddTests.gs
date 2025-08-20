@@ -10,10 +10,10 @@ function runAllConsistencyChecks() {
   results.integrityInconsistencies = IntegrityService.collectAllInconsistencies(true);
   results.auditErrors = IntegrityService.auditAllSheetsData();
   results.systemHealth = IntegrityService.checkSystemHealth();
-  results.bulkFormatCorrection = IntegrityService.bulkFormatCorrection(CONFIG.SHEETS.MONITORES, 'Celular_Monitor', v => v.replace(/\D/g, ''));
+  results.bulkFormatCorrection = IntegrityService.bulkFormatCorrection(getGlobalConfig().SHEETS.MONITORES, 'Celular_Monitor', v => v.replace(/\D/g, ''));
   results.archiveOldAttendanceRecords = IntegrityService.archiveOldAttendanceRecords(2);
-  results.optimizeSheet = IntegrityService.optimizeSheet(CONFIG.SHEETS.ALUNOS, ['ID_Aluno']);
-  results.geminiDuplicateReport = IntegrityService.generateGeminiDuplicateReport(CONFIG.SHEETS.ALUNOS, 'CPF');
+  results.optimizeSheet = IntegrityService.optimizeSheet(getGlobalConfig().SHEETS.ALUNOS, ['ID_Aluno']);
+  results.geminiDuplicateReport = IntegrityService.generateGeminiDuplicateReport(getGlobalConfig().SHEETS.ALUNOS, 'CPF');
   results.backupUsage = IntegrityService.checkBackupFolderUsage();
   results.removeEmptyRows = IntegrityService.removeEmptyRows(CONFIG.SHEETS.ALUNOS);
   results.removeEmptyColumns = IntegrityService.removeEmptyColumns(CONFIG.SHEETS.ALUNOS);

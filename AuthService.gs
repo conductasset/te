@@ -88,3 +88,5 @@ const AuthService = {
     }) || null;
   }
 };
+
+// Nenhuma função fantasma detectada para remoção neste arquivo.

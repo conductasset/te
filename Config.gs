@@ -113,3 +113,5 @@ function getConfig(path) {
   if (!path || typeof path !== 'string') return path;
   return path.split('.').reduce((acc, part) => acc && acc[part], globalThis.CONFIG) || path;
 }
+
+// Nenhuma função fantasma detectada para remoção neste arquivo.

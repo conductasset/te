@@ -11,18 +11,8 @@
 function doGet() {
   // Serve the main HTML file
   const htmlOutput = HtmlService.createHtmlOutputFromFile('Index')
-      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL) // Allow embedding in iframes
-      .setSandboxMode(HtmlService.SandboxMode.IFRAME); // Explicitly set IFRAME sandbox mode
-
-  // Note: The combination of HtmlService.SandboxMode.IFRAME (which includes allow-scripts and allow-same-origin)
-  // can trigger a browser warning about potential sandbox escape. This is a known behavior in Apps Script
-  // when allowing scripts and same-origin access within the iframe. For this application, it's assumed
-  // that the content loaded is trusted.
-  //
-  // Unrecognized feature warnings (e.g., ambient-light-sensor, speaker, web-share, vibrate, vr)
-  // are typically related to Permissions-Policy headers set by the Apps Script environment.
-  // These are informational warnings and generally do not affect functionality unless the
-  // application explicitly tries to use these features and they are blocked.
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
   return htmlOutput;
 }
 
@@ -332,3 +322,4 @@ function checkAttendanceConsistency() {
 function runAllDataConsistencyChecks() {
   return runAllConsistencyChecks();
 }
+// Nenhuma função fantasma detectada para remoção neste arquivo.

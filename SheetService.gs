@@ -120,3 +120,5 @@ const SheetService = {
     return report;
   },
 };
+
+// Nenhuma função fantasma detectada para remoção neste arquivo.

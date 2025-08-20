@@ -91,3 +91,5 @@ const SearchService = {
     }
   }
 };
+
+// Nenhuma função fantasma detectada para remoção neste arquivo.
